@@ -46,8 +46,7 @@ echo "Logs will be stored to ${CURL_OS390_TGT_LOG_DIR}"
 if [ ! -z "${CURL_OS390_TGT_CONFIG_OPTS}" ]; then
   ConfigOpts="$CURL_OS390_TGT_CONFIG_OPTS"
 else
-	echo "You need to specify envar CURL_OS390_TGT_CONFIG_OPTS." >&2
-	exit 16
+	ConfigOpts="--prefix=${CURL_PROD}"
 fi
 
 echo $ConfigOpts
@@ -88,7 +87,7 @@ cd "${CURLPORT_ROOT}/${CURL_VRM}" || exit 8
 #
 # Run autoreconf (using Autotools)
 #
-
+set -x
 if ! autoreconf -fi ; then
   echo "autoreconf failed" >&2
   exit 4
@@ -100,7 +99,7 @@ fi
 echo "Configure cURL"
 date
 if ! ./configure ${ConfigOpts} > ${CURL_OS390_TGT_LOG_DIR}/config.${USER}.out 2>&1 ; then
-	echo "Configure of cURL tree failed." >&2
+	echo "configure of cURL tree failed." >&2
 	exit 4
 fi
 
