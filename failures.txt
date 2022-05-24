@@ -1,0 +1,5 @@
+configure fails:
+
+configure: OPT_OPENSSL: yes
+configure: OPENSSL_ENABLED:
+configure: error: --with-openssl was given but OpenSSL could not be detected
