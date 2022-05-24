@@ -21,3 +21,5 @@ export PORT_EXTRA_LDFLAGS=""
 if [ "${PORT_TYPE}x" = "TARBALLx" ]; then
 	export PORT_BOOTSTRAP=skip
 fi
+
+export PORT_CONFIGURE_EXTRA_OPTS="--with-openssl"
