@@ -1,5 +1,7 @@
-configure fails:
+TESTDONE: 1503 tests were considered during 2886 seconds.
+TESTDONE: 1149 tests out of 1152 reported OK: 99%
 
-configure: OPT_OPENSSL: yes
-configure: OPENSSL_ENABLED:
-configure: error: --with-openssl was given but OpenSSL could not be detected
+TESTFAIL: These test cases failed: 1086 1206 1207
+
+make[1]: Leaving directory '/fultonm/dev/curlport/curl-7.83.1/tests'
+
