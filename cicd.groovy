@@ -10,6 +10,6 @@ node('linux')
         }
 
         stage('Build') {
-                build job: 'Port-Pipeline', parameters: [string(name: 'PORT_GITHUB_REPO', value: 'curlport'), string(name: 'PORT_DESCRIPTION', value: 'curl is used in command lines or scripts to transfer data.' )]
+                build job: 'Port-Pipeline', parameters: [string(name: 'PORT_GITHUB_REPO', value: 'https://github.com/ZOSOpenTools/curlport.git'), string(name: 'PORT_DESCRIPTION', value: 'curl is used in command lines or scripts to transfer data.' )]
         }
 }
