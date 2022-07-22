@@ -6,7 +6,7 @@ node('linux')
                         branches: [[name: '*/main']],
                         doGenerateSubmoduleConfigurations: false,
                         extensions: [],
-                        userRemoteConfigs: [[url: 'https://github.com/ZOSOpenTools/curlportport.git']]])
+                        userRemoteConfigs: [[url: 'https://github.com/ZOSOpenTools/curlport.git']]])
         }
 
         stage('Build') {
