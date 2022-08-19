@@ -15,8 +15,8 @@ export ZOPEN_TARBALL_DEPS="curl gzip make m4 perl autoconf openssl"
 export ZOPEN_GIT_URL="https://github.com/curl/curl.git"
 export ZOPEN_GIT_DEPS="git make m4 perl autoconf automake help2man makeinfo xz openssl"
 
-export CC='xlclang'
-export CFLAGS="-qascii -std=gnu11 -qnose -I$PWD/curl-7.83.1/include,$PWD/curl-7.83.1/lib,\$OPENSSL_HOME/include,\$ZLIB_HOME/include,/usr/include/le -L\$OPENSSL_HOME/lib -L\$ZLIB_HOME/lib -lcrypto -lssl -lz"
+export ZOPEN_EXTRA_CPPFLAGS="-I\$OPENSSL_HOME/include -I\$ZLIB_HOME/include"
+export LDFLAGS="-L\$OPENSSL_HOME/lib -L\$ZLIB_HOME/lib -lcrypto -lssl -lz"
 
 if [ "${ZOPEN_TYPE}x" = "TARBALLx" ]; then
 	export ZOPEN_BOOTSTRAP=skip
