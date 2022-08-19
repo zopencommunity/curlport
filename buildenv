@@ -10,10 +10,10 @@ fi
 export ZOPEN_ROOT="${PWD}"
 export ZOPEN_TYPE="TARBALL"
 export ZOPEN_TARBALL_URL="https://curl.se/download/curl-7.83.1.tar.gz"
-export ZOPEN_TARBALL_DEPS="curl gzip make m4 perl autoconf openssl"
+export ZOPEN_TARBALL_DEPS="curl gzip make m4 perl autoconf openssl zlib"
 
 export ZOPEN_GIT_URL="https://github.com/curl/curl.git"
-export ZOPEN_GIT_DEPS="git make m4 perl autoconf automake help2man makeinfo xz openssl"
+export ZOPEN_GIT_DEPS="git make m4 perl autoconf automake help2man makeinfo xz openssl zlib"
 
 export ZOPEN_EXTRA_CPPFLAGS="-I\$OPENSSL_HOME/include -I\$ZLIB_HOME/include"
 export LDFLAGS="-L\$OPENSSL_HOME/lib -L\$ZLIB_HOME/lib -lcrypto -lssl -lz"
