@@ -17,3 +17,9 @@ if [ "${ZOPEN_TYPE}x" = "TARBALLx" ]; then
 fi
 
 export ZOPEN_EXTRA_CONFIGURE_OPTS="--with-openssl=\$OPENSSL_HOME"
+
+zopen_check_results()
+{
+  return 3
+}
+
