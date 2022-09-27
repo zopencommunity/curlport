@@ -20,6 +20,15 @@ export ZOPEN_EXTRA_CONFIGURE_OPTS="--with-openssl=\$OPENSSL_HOME"
 
 zopen_check_results()
 {
-  return 3 # non-functional
+chk="$2_check.log"
+
+failures=$(grep -E "TESTDONE:.*tests out of.*reported OK" ${chk} | cut -f2 -d' ')
+totalTests=$(grep -E "TESTDONE:.*tests out of.*reported OK" ${chk} | cut -f6 -d' ')
+
+cat <<ZZ
+actualFailures:$failures
+totalTests:$totalTests
+expectedFailures:3
+ZZ
 }
 
