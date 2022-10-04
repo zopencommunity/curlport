@@ -22,8 +22,9 @@ zopen_check_results()
 {
 chk="$2_check.log"
 
-failures=$(grep -E "TESTDONE:.*tests out of.*reported OK" ${chk} | cut -f2 -d' ')
+success=$(grep -E "TESTDONE:.*tests out of.*reported OK" ${chk} | cut -f2 -d' ')
 totalTests=$(grep -E "TESTDONE:.*tests out of.*reported OK" ${chk} | cut -f6 -d' ')
+failures=$((totalTests-success))
 
 cat <<ZZ
 actualFailures:$failures
