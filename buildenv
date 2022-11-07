@@ -1,7 +1,3 @@
-#!/bin/sh
-#
-# Set up environment variables for general build tool to operate
-#
 export ZOPEN_TYPE="TARBALL"
 export ZOPEN_TARBALL_URL="https://curl.se/download/curl-7.83.1.tar.gz"
 export ZOPEN_TARBALL_DEPS="curl gzip make m4 perl autoconf openssl zlib gawk zoslib"
@@ -20,7 +16,7 @@ export ZOPEN_EXTRA_CONFIGURE_OPTS="--with-openssl=\$OPENSSL_HOME"
 
 zopen_check_results()
 {
-chk="$2_check.log"
+chk="$1/$2_check.log"
 
 success=$(grep -E "TESTDONE:.*tests out of.*reported OK" ${chk} | cut -f2 -d' ')
 totalTests=$(grep -E "TESTDONE:.*tests out of.*reported OK" ${chk} | cut -f6 -d' ')
