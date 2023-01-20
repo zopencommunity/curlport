@@ -29,3 +29,23 @@ expectedFailures:3
 ZZ
 }
 
+zopen_append_to_env()
+{
+cat <<EOF
+if [ "\${SSL_CERT_FILE}x" = "x" ]; then
+  if [ -f "\$PWD/cacert.pem" ]; then
+    export SSL_CERT_FILE="\$PWD/cacert.pem"
+  else
+    echo "Warning: you need to set SSL_CERT_FILE to a pem file if you want to use curl with SSH" >&2
+  fi
+fi
+EOF
+}
+
+zopen_append_to_setup() {
+cat <<EOF
+if [ -f "\$PWD/../cacert.pem" ]; then
+  cp "\$PWD/../cacert.pem" "\$PWD/cacert.pem"
+fi
+EOF
+}
