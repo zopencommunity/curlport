@@ -1,5 +1,5 @@
 export ZOPEN_TYPE="TARBALL"
-export ZOPEN_TARBALL_URL="https://curl.se/download/curl-7.83.1.tar.gz"
+export ZOPEN_TARBALL_URL="https://curl.se/download/curl-7.88.1.tar.gz"
 export ZOPEN_TARBALL_DEPS="curl gzip tar make m4 perl autoconf openssl zlib gawk zoslib"
 
 export ZOPEN_GIT_URL="https://github.com/curl/curl.git"
