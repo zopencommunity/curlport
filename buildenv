@@ -42,6 +42,12 @@ fi
 EOF
 }
 
+zopen_append_to_zoslib_env() {
+cat <<EOF
+SSL_CERT_FILE|set|PROJECT_ROOT/cacert.pem
+EOF
+}
+
 zopen_post_install()
 {
   # Install a cacert.pem to be used (optionally) by the customer
