@@ -1,0 +1,13 @@
+diff --git a/include/curl/system.h b/include/curl/system.h
+index def7739..7aeba46 100644
+--- a/include/curl/system.h
++++ b/include/curl/system.h
+@@ -237,7 +237,7 @@
+ #  define CURL_PULL_SYS_SOCKET_H     1
+ 
+ #elif defined(__MVS__)
+-#  if defined(__IBMC__) || defined(__IBMCPP__)
++#  if defined(__IBMC__) || defined(__IBMCPP__) || defined(__clang__)
+ #    if defined(_ILP32)
+ #    elif defined(_LP64)
+ #    endif
