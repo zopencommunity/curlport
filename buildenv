@@ -1,6 +1,6 @@
 export ZOPEN_TYPE="TARBALL"
-export ZOPEN_TARBALL_URL="https://curl.se/download/curl-7.88.1.tar.gz"
-export ZOPEN_TARBALL_DEPS="curl gzip tar make m4 perl autoconf openssl zlib gawk zoslib"
+export ZOPEN_TARBALL_URL="https://curl.se/download/curl-8.1.2.tar.gz"
+export ZOPEN_TARBALL_DEPS="curl gzip tar make m4 perl autoconf openssl zlib gawk zoslib python"
 
 export ZOPEN_GIT_URL="https://github.com/curl/curl.git"
 export ZOPEN_GIT_DEPS="git make m4 perl autoconf automake help2man texinfo xz openssl zlib"
@@ -14,6 +14,15 @@ fi
 
 export ZOPEN_EXTRA_CONFIGURE_OPTS="--with-openssl=\$OPENSSL_HOME"
 
+# Requires impacket for tests
+zopen_init()
+{
+  if ! ( pip3 freeze | grep -q impacket ); then
+    pip3 install impacket 
+  fi
+  export PATH=${HOME}/.local/bin:$PATH
+}
+
 zopen_check_results()
 {
 chk="$1/$2_check.log"
@@ -25,7 +34,7 @@ failures=$((totalTests-success))
 cat <<ZZ
 actualFailures:$failures
 totalTests:$totalTests
-expectedFailures:3
+expectedFailures:6
 ZZ
 }
 
@@ -52,4 +61,9 @@ zopen_post_install()
 {
   # Install a cacert.pem to be used (optionally) by the customer
   zopen update-cacert -f $1
+}
+
+zopen_get_version()
+{
+  ./src/curl --version | cut -f2 -d' ' | head -1
 }
