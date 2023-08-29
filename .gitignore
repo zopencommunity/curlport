@@ -1,5 +1,5 @@
 curl
-curl-7.83.1
+curl-*/
 curl.local
-log/
+log*/
 install/
