@@ -57,7 +57,7 @@ EOF
 zopen_post_install()
 {
   # Install a cacert.pem to be used (optionally) by the customer
-  zopen update-cacert -f $1
+  $MYDIR/zopen update-cacert -f $1
 }
 
 zopen_get_version()
