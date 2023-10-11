@@ -2,8 +2,8 @@ name: 'Automatic version updates'
 
 on:
   schedule:
-    # minute hour dom month dow (UTC)
-    - cron: '00 15 * * *'
+    # hourly
+    - cron: '00 * * * *'
   # enable manual trigger of version updates
   workflow_dispatch:
 jobs:

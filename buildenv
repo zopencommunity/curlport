@@ -41,10 +41,16 @@ success=$(grep -E "TESTDONE:.*tests out of.*reported OK" ${chk} | cut -f2 -d' ')
 totalTests=$(grep -E "TESTDONE:.*tests out of.*reported OK" ${chk} | cut -f6 -d' ')
 failures=$((totalTests-success))
 
+if [ "${ZOPEN_BUILD_LINE}x" = "DEVx" ]; then
+  expectedFailures="18"
+else
+  expectedFailures="7" # 2 of the 7 are flaky
+fi
+
 cat <<ZZ
 actualFailures:$failures
 totalTests:$totalTests
-expectedFailures:18
+expectedFailures:$expectedFailures
 ZZ
 }
 
