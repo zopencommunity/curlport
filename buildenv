@@ -55,6 +55,18 @@ expectedFailures:$expectedFailures
 ZZ
 }
 
+zopen_append_to_env()
+{
+cat <<ZZ
+if [ ! -z "\$ZOPEN_IN_ZOPEN_BUILD" ]; then
+  export ZOPEN_EXTRA_CFLAGS="\${ZOPEN_EXTRA_CFLAGS} -I\$PWD/include"
+  export ZOPEN_EXTRA_CXXFLAGS="\${ZOPEN_EXTRA_CXXFLAGS}	-I\$PWD/include"
+  export ZOPEN_EXTRA_LDFLAGS="\${ZOPEN_EXTRA_LDFLAGS} -L\$PWD/lib"
+  export ZOPEN_EXTRA_LIBS="\${ZOPEN_EXTRA_LIBS}"
+fi
+ZZ
+}
+
 zopen_append_to_zoslib_env() {
 cat <<EOF
 SSL_CERT_FILE|set|PROJECT_ROOT/cacert.pem
