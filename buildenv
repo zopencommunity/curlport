@@ -1,5 +1,5 @@
 # bump: curl-version /CURL_VERSION="(.*)"/ https://curl.se/download/|re:/curl-([\d.]+).tar.gz/$1/|semver:*
-CURL_VERSION="8.4.0"
+CURL_VERSION="8.9.1"
 
 export ZOPEN_BUILD_LINE="STABLE" # Default build line
 
@@ -11,6 +11,8 @@ export ZOPEN_DEV_DEPS="libtool automake curl gzip tar make m4 perl autoconf open
 
 export ZOPEN_EXTRA_CPPFLAGS="-I\$OPENSSL_HOME/include -I\$ZLIB_HOME/include"
 export LDFLAGS="-L\$OPENSSL_HOME/lib -L\$ZLIB_HOME/lib -lcrypto -lssl -lz"
+export ZOPEN_CHECK_TIMEOUT=72000 # 20 hours
+export ZOPEN_COMP=CLANG
 
 zopen_post_buildenv()
 {
@@ -51,6 +53,18 @@ cat <<ZZ
 actualFailures:$failures
 totalTests:$totalTests
 expectedFailures:$expectedFailures
+ZZ
+}
+
+zopen_append_to_env()
+{
+cat <<ZZ
+if [ ! -z "\$ZOPEN_IN_ZOPEN_BUILD" ]; then
+  export ZOPEN_EXTRA_CFLAGS="\${ZOPEN_EXTRA_CFLAGS} -I\$PWD/include"
+  export ZOPEN_EXTRA_CXXFLAGS="\${ZOPEN_EXTRA_CXXFLAGS}	-I\$PWD/include"
+  export ZOPEN_EXTRA_LDFLAGS="\${ZOPEN_EXTRA_LDFLAGS} -L\$PWD/lib"
+  export ZOPEN_EXTRA_LIBS="\${ZOPEN_EXTRA_LIBS} -lcurl"
+fi
 ZZ
 }
 
