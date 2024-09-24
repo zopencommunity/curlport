@@ -1,5 +1,5 @@
 # bump: curl-version /CURL_VERSION="(.*)"/ https://curl.se/download/|re:/curl-([\d.]+).tar.gz/$1/|semver:*
-CURL_VERSION="8.9.1"
+CURL_VERSION="8.10.1"
 
 export ZOPEN_BUILD_LINE="STABLE" # Default build line
 
@@ -22,7 +22,7 @@ zopen_post_buildenv()
 }
 
 
-export ZOPEN_EXTRA_CONFIGURE_OPTS="--with-openssl=\$OPENSSL_HOME"
+export ZOPEN_EXTRA_CONFIGURE_OPTS="--with-openssl=\$OPENSSL_HOME --without-libpsl"
 
 # Requires impacket for tests
 zopen_init()
