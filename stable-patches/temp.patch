@@ -1,0 +1,30 @@
+From a4abc802e9dc8500ac179e34af4b4cdb0faf7b1c Mon Sep 17 00:00:00 2001
+From: mauke <lukasmai.403@gmail.com>
+Date: Thu, 30 Jan 2025 06:28:50 +0100
+Subject: [PATCH] fix precedence issue in runtests.pl
+
+The condition `!$cmdtype eq "perl"` (introduced in a4765b0551) is always false.
+It checks whether a logical negation (giving true/false) is equal to the string
+`"perl"`. This is impossible, so the logging never worked.
+
+The intent was probably to negate the result of the string
+comparison:`!($cmdtype eq "perl")` or simply `$cmdtype ne "perl"`.
+
+Fixes #16128.
+---
+ tests/runtests.pl | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/tests/runtests.pl b/tests/runtests.pl
+index da9caebfc2c5..7918a757a422 100755
+--- a/tests/runtests.pl
++++ b/tests/runtests.pl
+@@ -1673,7 +1673,7 @@ sub singletest_check {
+             my %cmdhash = getpartattr("client", "command");
+             my $cmdtype = $cmdhash{'type'} || "default";
+             logmsg "\n** ALERT! memory tracking with no output file?\n"
+-                if(!$cmdtype eq "perl");
++                if($cmdtype ne "perl");
+             $ok .= "-"; # problem with memory checking
+         }
+         else {
