@@ -4,10 +4,10 @@ CURL_VERSION="8.12.1"
 export ZOPEN_BUILD_LINE="STABLE" # Default build line
 
 export ZOPEN_STABLE_URL="https://curl.se/download/curl-${CURL_VERSION}.tar.gz"
-export ZOPEN_STABLE_DEPS="curl gzip tar make m4 perl autoconf openssl zlib gawk zoslib check_python"
+export ZOPEN_STABLE_DEPS="curl gzip tar make m4 perl autoconf openssl zlib gawk zoslib check_python zusage"
 
 export ZOPEN_DEV_URL="https://github.com/curl/curl.git"
-export ZOPEN_DEV_DEPS="libtool automake curl gzip tar make m4 perl autoconf openssl zlib gawk zoslib check_python"
+export ZOPEN_DEV_DEPS="libtool automake curl gzip tar make m4 perl autoconf openssl zlib gawk zoslib check_python zusage"
 
 export ZOPEN_EXTRA_CPPFLAGS="-I\$OPENSSL_HOME/include -I\$ZLIB_HOME/include"
 export LDFLAGS="-L\$OPENSSL_HOME/lib -L\$ZLIB_HOME/lib -lcrypto -lssl -lz"
