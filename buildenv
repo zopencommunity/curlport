@@ -10,6 +10,8 @@ export ZOPEN_DEV_URL="https://github.com/curl/curl.git"
 export ZOPEN_DEV_DEPS="libtool automake curl gzip tar make m4 perl autoconf openssl zlib gawk zoslib check_python zusage"
 
 export ZOPEN_EXTRA_CPPFLAGS="-I\$OPENSSL_HOME/include -I\$ZLIB_HOME/include"
+export ZOPEN_EXTRA_CFLAGS="-mzos-target=zosv2r5 -march=z13"
+export ZOPEN_SYSTEM_PREREQS="zos25"
 export LDFLAGS="-L\$OPENSSL_HOME/lib -L\$ZLIB_HOME/lib -lcrypto -lssl -lz"
 export ZOPEN_CHECK_TIMEOUT=72000 # 20 hours
 export ZOPEN_CHECK_OPTS="-j\$ZOPEN_NUM_JOBS check"
