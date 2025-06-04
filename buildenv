@@ -1,5 +1,5 @@
 # bump: curl-version /CURL_VERSION="(.*)"/ https://curl.se/download/|re:/curl-([\d.]+).tar.gz/$1/|semver:*
-CURL_VERSION="8.14.0"
+CURL_VERSION="8.14.1"
 
 export ZOPEN_BUILD_LINE="STABLE" # Default build line
 
