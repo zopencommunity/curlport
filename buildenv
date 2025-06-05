@@ -4,19 +4,17 @@ CURL_VERSION="8.14.1"
 export ZOPEN_BUILD_LINE="STABLE" # Default build line
 
 export ZOPEN_STABLE_URL="https://curl.se/download/curl-${CURL_VERSION}.tar.gz"
-export ZOPEN_STABLE_DEPS="curl gzip tar make m4 perl autoconf openssl zlib gawk zoslib check_python zusage"
+export ZOPEN_STABLE_DEPS="curl gzip tar make m4 perl autoconf openssl zlib gawk zoslib check_python zusage libpsl coreutils libssh2"
 
 export ZOPEN_DEV_URL="https://github.com/curl/curl.git"
-export ZOPEN_DEV_DEPS="libtool automake curl gzip tar make m4 perl autoconf openssl zlib gawk zoslib check_python zusage"
+axport ZOPEN_DEV_DEPS="libtool automake curl gzip tar make m4 perl autoconf openssl zlib gawk zoslib check_python zusage libpsl coreutils libssh2"
 
 export ZOPEN_EXTRA_CPPFLAGS="-I\$OPENSSL_HOME/include -I\$ZLIB_HOME/include"
 export ZOPEN_EXTRA_CFLAGS="-mzos-target=zosv2r5 -march=z13"
 export ZOPEN_SYSTEM_PREREQS="zos25"
-export LDFLAGS="-L\$OPENSSL_HOME/lib -L\$ZLIB_HOME/lib -lcrypto -lssl -lz"
 export ZOPEN_CHECK_TIMEOUT=72000 # 20 hours
 export ZOPEN_CHECK_OPTS="-j\$ZOPEN_NUM_JOBS check"
 export ZOPEN_COMP=CLANG
-export ZOPEN_EXTRA_CONFIGURE_OPTS="--enable-ipv6"
 
 zopen_post_buildenv()
 {
@@ -26,7 +24,7 @@ zopen_post_buildenv()
 }
 
 
-export ZOPEN_EXTRA_CONFIGURE_OPTS="--with-openssl=\$OPENSSL_HOME --without-libpsl"
+export ZOPEN_EXTRA_CONFIGURE_OPTS="--with-openssl=\$OPENSSL_HOME --enable-ipv6 --with-libssh2"
 
 # Requires impacket for tests
 zopen_init()
