@@ -16,6 +16,8 @@ export ZOPEN_CHECK_TIMEOUT=72000 # 20 hours
 export ZOPEN_CHECK_OPTS="-j\$ZOPEN_NUM_JOBS check"
 export ZOPEN_COMP=CLANG
 
+export ZOPEN_RUNTIME_DEPS="libssh2 libpsl openssl" # library dependencies for curl
+
 zopen_post_buildenv()
 {
   if [ "${ZOPEN_BUILD_LINE}x" = "DEVx" ]; then
