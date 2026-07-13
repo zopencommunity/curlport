@@ -1,8 +1,8 @@
 diff --git a/tests/libtest/lib1565.c b/tests/libtest/lib1565.c
-index 765650a..6f4fc18 100644
+index 825d88e..60a633a 100644
 --- a/tests/libtest/lib1565.c
 +++ b/tests/libtest/lib1565.c
-@@ -93,7 +93,12 @@ static CURLcode test_lib1565(const char *URL)
+@@ -92,7 +92,12 @@ static CURLcode test_lib1565(const char *URL)
    CURL *started_curls[CONN_NUM];
    int started_num = 0;
    int finished_num = 0;
@@ -12,6 +12,6 @@ index 765650a..6f4fc18 100644
 +#else
    pthread_t tid = 0;
 +#endif
-   bool tid_valid = false;
+   bool tid_valid = FALSE;
    struct CURLMsg *message;
  

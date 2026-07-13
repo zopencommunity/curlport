@@ -1,10 +1,10 @@
 diff --git a/tests/data/Makefile.am b/tests/data/Makefile.am
-index 5a517df..eb960b8 100644
+index 9fb1720..3d49568 100644
 --- a/tests/data/Makefile.am
 +++ b/tests/data/Makefile.am
-@@ -290,7 +290,7 @@ test3216 test3217 test3218 test3219 test3220 \
- \
- test3300 test3301 \
+@@ -290,7 +290,7 @@ test3300 test3301 test3302 test3303 test3304 test3305 \
+ test3400 \
+ test3401 \
  \
 -test4000 test4001
 +test4000 test4001 test4002 test4003 test4004 test4005 test4006 test4007 test4008 test4009
