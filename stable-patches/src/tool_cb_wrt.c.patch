@@ -1,5 +1,5 @@
 diff --git a/src/tool_cb_wrt.c b/src/tool_cb_wrt.c
-index 1d2b81e..cd4a311 100644
+index 133573a..c1b7a84 100644
 --- a/src/tool_cb_wrt.c
 +++ b/src/tool_cb_wrt.c
 @@ -28,6 +28,14 @@
@@ -25,7 +25,7 @@ index 1d2b81e..cd4a311 100644
    DEBUGASSERT(outs);
    DEBUGASSERT(config);
    DEBUGASSERT(fname && *fname);
-@@ -99,6 +108,22 @@ bool tool_create_output_file(struct OutStruct *outs,
+@@ -103,6 +112,20 @@ bool tool_create_output_file(struct OutStruct *outs,
            curlx_strerror(errno, errbuf, sizeof(errbuf)));
      return FALSE;
    }
@@ -35,11 +35,9 @@ index 1d2b81e..cd4a311 100644
 +    int rc_tag;
 +    if(config->local_ccsid == 65535) {
 +      rc_tag = __chgfdccsid(fd, FT_BINARY);
-+      fprintf(stderr, "DEBUG: __chgfdccsid(FT_BINARY) returns %d, errno=%d\n", rc_tag, errno);
 +    }
 +    else {
 +      rc_tag = __chgfdccsid(fd, (int)config->local_ccsid);
-+      fprintf(stderr, "DEBUG: __chgfdccsid(%d) returns %d, errno=%d\n", (int)config->local_ccsid, rc_tag, errno);
 +    }
 +  }
 +#endif
@@ -48,7 +46,7 @@ index 1d2b81e..cd4a311 100644
    outs->regular_file = TRUE;
    outs->fopened = TRUE;
    outs->stream = file;
-@@ -308,6 +333,55 @@ size_t tool_write_cb(char *buffer, size_t sz, size_t nmemb, void *userdata)
+@@ -311,6 +334,53 @@ size_t tool_write_cb(char *buffer, size_t sz, size_t nmemb, void *userdata)
    if(!outs->stream && !tool_create_output_file(outs, per->config))
      return CURL_WRITEFUNC_ERROR;
  
@@ -92,11 +90,9 @@ index 1d2b81e..cd4a311 100644
 +    int rc_tag;
 +    if(config->local_ccsid == 65535) {
 +      rc_tag = __chgfdccsid(fileno(outs->stream), FT_BINARY);
-+      fprintf(stderr, "DEBUG: write_cb __chgfdccsid(FT_BINARY) returns %d\n", rc_tag);
 +    }
 +    else {
 +      rc_tag = __chgfdccsid(fileno(outs->stream), (int)config->local_ccsid);
-+      fprintf(stderr, "DEBUG: write_cb __chgfdccsid(%d) returns %d\n", (int)config->local_ccsid, rc_tag);
 +    }
 +  }
 +#endif
@@ -104,7 +100,7 @@ index 1d2b81e..cd4a311 100644
    if(is_tty && (outs->bytes < 2000) && !config->terminal_binary_ok) {
      /* binary output to terminal? */
      if(memchr(buffer, 0, bytes)) {
-@@ -342,6 +416,14 @@ size_t tool_write_cb(char *buffer, size_t sz, size_t nmemb, void *userdata)
+@@ -345,6 +415,14 @@ size_t tool_write_cb(char *buffer, size_t sz, size_t nmemb, void *userdata)
      /* we added this amount of data to the output */
      outs->bytes += bytes;
  
