@@ -1,8 +1,8 @@
 diff --git a/src/tool_cfgable.c b/src/tool_cfgable.c
-index b907b24..ec6b9c3 100644
+index 3feb3e7..bd5e69f 100644
 --- a/src/tool_cfgable.c
 +++ b/src/tool_cfgable.c
-@@ -184,6 +184,9 @@ static void free_config_fields(struct OperationConfig *config)
+@@ -160,6 +160,9 @@ static void free_config_fields(struct OperationConfig *config)
    curlx_safefree(config->krblevel);
    curlx_safefree(config->oauth_bearer);
    curlx_safefree(config->sasl_authzid);

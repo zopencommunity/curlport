@@ -1,6 +1,6 @@
 diff --git a/docs/cmdline-opts/download-encoding.md b/docs/cmdline-opts/download-encoding.md
 new file mode 100644
-index 0000000..3e67aed
+index 0000000..f5f8746
 --- /dev/null
 +++ b/docs/cmdline-opts/download-encoding.md
 @@ -0,0 +1,30 @@

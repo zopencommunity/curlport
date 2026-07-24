@@ -1,8 +1,8 @@
 diff --git a/tests/runtests.pl b/tests/runtests.pl
-index c531409..e031134 100755
+index 6194961..a9ff39c 100755
 --- a/tests/runtests.pl
 +++ b/tests/runtests.pl
-@@ -567,6 +567,9 @@ sub checksystemfeatures {
+@@ -568,6 +568,9 @@ sub checksystemfeatures {
                  $pwd = sys_native_current_path();
                  $feature{"win32"} = 1;
              }

@@ -1,5 +1,5 @@
 diff --git a/src/tool_cb_wrt.c b/src/tool_cb_wrt.c
-index 1d2b81e..cd4a311 100644
+index 133573a..48eb33d 100644
 --- a/src/tool_cb_wrt.c
 +++ b/src/tool_cb_wrt.c
 @@ -28,6 +28,14 @@
@@ -25,7 +25,7 @@ index 1d2b81e..cd4a311 100644
    DEBUGASSERT(outs);
    DEBUGASSERT(config);
    DEBUGASSERT(fname && *fname);
-@@ -99,6 +108,22 @@ bool tool_create_output_file(struct OutStruct *outs,
+@@ -103,6 +112,20 @@ bool tool_create_output_file(struct OutStruct *outs,
            curlx_strerror(errno, errbuf, sizeof(errbuf)));
      return FALSE;
    }
@@ -35,11 +35,9 @@ index 1d2b81e..cd4a311 100644
 +    int rc_tag;
 +    if(config->local_ccsid == 65535) {
 +      rc_tag = __chgfdccsid(fd, FT_BINARY);
-+      fprintf(stderr, "DEBUG: __chgfdccsid(FT_BINARY) returns %d, errno=%d\n", rc_tag, errno);
 +    }
 +    else {
 +      rc_tag = __chgfdccsid(fd, (int)config->local_ccsid);
-+      fprintf(stderr, "DEBUG: __chgfdccsid(%d) returns %d, errno=%d\n", (int)config->local_ccsid, rc_tag, errno);
 +    }
 +  }
 +#endif
@@ -48,31 +46,37 @@ index 1d2b81e..cd4a311 100644
    outs->regular_file = TRUE;
    outs->fopened = TRUE;
    outs->stream = file;
-@@ -308,6 +333,55 @@ size_t tool_write_cb(char *buffer, size_t sz, size_t nmemb, void *userdata)
+@@ -311,6 +334,59 @@ size_t tool_write_cb(char *buffer, size_t sz, size_t nmemb, void *userdata)
    if(!outs->stream && !tool_create_output_file(outs, per->config))
      return CURL_WRITEFUNC_ERROR;
  
 +#ifdef __MVS__
 +  /* Handle download encoding conversion */
 +  char *converted_buffer = NULL;
-+  if(config->download_encoding && per->encoding_ctx) {
-+    encoding_ctx_t *ctx = (encoding_ctx_t*)per->encoding_ctx;
++  if(config->download_encoding && per->download_encoding_ctx) {
++    encoding_ctx_t *ctx = (encoding_ctx_t*)per->download_encoding_ctx;
 +    if(ctx->mode != ENCODING_NONE) {
 +      /* Convert downloaded data using encoding context */
-+      size_t size = bytes;
-+      converted_buffer = malloc(bytes * 2); /* Allow for expansion */
-+      if(converted_buffer) {
-+        memcpy(converted_buffer, buffer, bytes);
-+        if(encoding_convert(per->encoding_ctx, converted_buffer, &size, 
-+                            bytes * 2) == 0) {
-+          buffer = converted_buffer;
-+          bytes = size;
-+        }
-+        else {
-+          /* Conversion failed, free buffer and use original */
-+          free(converted_buffer);
-+          converted_buffer = NULL;
-+        }
++      size_t conv_size = bytes;
++      size_t needed = bytes * 2;
++      /* Use cached buffer, growing if needed */
++      if(!ctx->conv_buf || ctx->conv_buf_size < needed) {
++        free(ctx->conv_buf);
++        ctx->conv_buf_size = needed;
++        ctx->conv_buf = malloc(ctx->conv_buf_size);
++      }
++      converted_buffer = ctx->conv_buf;
++      if(!converted_buffer)
++        return CURL_WRITEFUNC_ERROR;
++      memcpy(converted_buffer, buffer, bytes);
++      if(encoding_convert(per->download_encoding_ctx, converted_buffer,
++                          &conv_size, ctx->conv_buf_size) == 0) {
++        buffer = converted_buffer;
++        bytes = conv_size;
++      }
++      else {
++        /* Conversion failed â abort to prevent corrupted output */
++        return CURL_WRITEFUNC_ERROR;
 +      }
 +    }
 +  }
@@ -92,11 +96,9 @@ index 1d2b81e..cd4a311 100644
 +    int rc_tag;
 +    if(config->local_ccsid == 65535) {
 +      rc_tag = __chgfdccsid(fileno(outs->stream), FT_BINARY);
-+      fprintf(stderr, "DEBUG: write_cb __chgfdccsid(FT_BINARY) returns %d\n", rc_tag);
 +    }
 +    else {
 +      rc_tag = __chgfdccsid(fileno(outs->stream), (int)config->local_ccsid);
-+      fprintf(stderr, "DEBUG: write_cb __chgfdccsid(%d) returns %d\n", (int)config->local_ccsid, rc_tag);
 +    }
 +  }
 +#endif
@@ -104,16 +106,14 @@ index 1d2b81e..cd4a311 100644
    if(is_tty && (outs->bytes < 2000) && !config->terminal_binary_ok) {
      /* binary output to terminal? */
      if(memchr(buffer, 0, bytes)) {
-@@ -342,6 +416,14 @@ size_t tool_write_cb(char *buffer, size_t sz, size_t nmemb, void *userdata)
+@@ -345,6 +421,12 @@ size_t tool_write_cb(char *buffer, size_t sz, size_t nmemb, void *userdata)
      /* we added this amount of data to the output */
      outs->bytes += bytes;
  
 +#ifdef __MVS__
-+  /* Free converted buffer if it was allocated */
-+  if(converted_buffer) {
-+    free(converted_buffer);
-+    converted_buffer = NULL;
-+  }
++  /* converted_buffer points to ctx->conv_buf which is freed by
++   * encoding_cleanup() â no per-call free needed */
++  (void)converted_buffer;
 +#endif
 +
    if(config->readbusy) {

@@ -1,8 +1,8 @@
 diff --git a/src/tool_cb_rea.c b/src/tool_cb_rea.c
-index eb23f9b..be3cb2d 100644
+index b5bc53a..1d21c8c 100644
 --- a/src/tool_cb_rea.c
 +++ b/src/tool_cb_rea.c
-@@ -130,15 +130,31 @@ size_t tool_read_cb(char *buffer, size_t sz, size_t nmemb, void *userdata)
+@@ -125,15 +125,32 @@ size_t tool_read_cb(char *buffer, size_t sz, size_t nmemb, void *userdata)
    else
  #endif /* _WIN32 */
    {
@@ -13,8 +13,9 @@ index eb23f9b..be3cb2d 100644
 -        config->readbusy = TRUE;
 -        return CURL_READFUNC_PAUSE;
 +#ifdef __MVS__
-+    /* z/OS: Use fread for datasets opened with fopen */
++    /* z/OS: Use fread for datasets opened with text mode */
 +    if(per->use_fopen && per->infp) {
++      /* Text mode automatically converts record boundaries to \n */
 +      rc = (ssize_t)fread(buffer, 1, sz * nmemb, per->infp);
 +      if(rc == 0) {
 +        if(ferror(per->infp)) {
@@ -42,7 +43,7 @@ index eb23f9b..be3cb2d 100644
      }
    }
  
-@@ -151,6 +167,26 @@ size_t tool_read_cb(char *buffer, size_t sz, size_t nmemb, void *userdata)
+@@ -146,6 +163,26 @@ size_t tool_read_cb(char *buffer, size_t sz, size_t nmemb, void *userdata)
            delta);
      rc = (ssize_t)(per->uploadfilesize - per->uploadedsofar);
    }
@@ -53,12 +54,12 @@ index eb23f9b..be3cb2d 100644
 +
 +    /* Handle dataset encoding (backward compatibility) */
 +    if(per->convert_ascii) {
-+      __e2a_s(buffer);
++      __e2a_l(buffer, (size_t)rc);
 +    }
 +    /* Handle z/OS UNIX file encoding */
-+    else if(config->upload_encoding_unix && per->encoding_ctx) {
++    else if(config->upload_encoding_unix && per->upload_encoding_ctx) {
 +      size_t size = (size_t)rc;
-+      if(encoding_convert(per->encoding_ctx, buffer, &size,
++      if(encoding_convert(per->upload_encoding_ctx, buffer, &size,
 +                          CURL_MAX_WRITE_SIZE) == 0) {
 +        rc = (ssize_t)size;
 +      }
