@@ -1,16 +1,8 @@
 diff --git a/src/tool_getparam.h b/src/tool_getparam.h
-index 44eb361..a785be8 100644
+index 32476d3..6bb594a 100644
 --- a/src/tool_getparam.h
 +++ b/src/tool_getparam.h
-@@ -270,6 +270,7 @@ typedef enum {
-   C_STDERR,
-   C_STYLED_OUTPUT,
-   C_SUPPRESS_CONNECT_HEADERS,
-+  C_TAG,
-   C_TCP_FASTOPEN,
-   C_TCP_NODELAY,
-   C_TELNET_OPTION,
-@@ -297,6 +298,8 @@ typedef enum {
+@@ -298,6 +298,8 @@ typedef enum {
    C_TRACE_TIME,
    C_IP_TOS,
    C_UNIX_SOCKET,

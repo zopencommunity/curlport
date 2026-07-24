@@ -1,8 +1,8 @@
 diff --git a/src/tool_operate.h b/src/tool_operate.h
-index 69b304d..ce402c8 100644
+index 69b304d..1ea3dfa 100644
 --- a/src/tool_operate.h
 +++ b/src/tool_operate.h
-@@ -29,6 +29,36 @@
+@@ -29,6 +29,38 @@
  #include "tool_cb_prg.h"
  #include "tool_cfgable.h"
  
@@ -24,6 +24,8 @@ index 69b304d..ce402c8 100644
 +  char *to_encoding;
 +  void *iconv_cd;
 +  unsigned short ccsid;
++  char *conv_buf;      /* cached conversion buffer */
++  size_t conv_buf_size; /* size of cached conversion buffer */
 +} encoding_ctx_t;
 +
 +/* Encoding function declarations */
@@ -39,7 +41,7 @@ index 69b304d..ce402c8 100644
  struct per_transfer {
    char errorbuffer[CURL_ERROR_SIZE];
    /* double linked */
-@@ -47,6 +77,7 @@ struct per_transfer {
+@@ -47,6 +79,7 @@ struct per_transfer {
    curl_off_t urlnum; /* the index of the given URL */
    char *outfile;
    int infd;
@@ -47,7 +49,7 @@ index 69b304d..ce402c8 100644
    struct ProgressData progressbar;
    struct OutStruct outs;
    struct OutStruct heads;
-@@ -68,7 +99,12 @@ struct per_transfer {
+@@ -68,7 +101,13 @@ struct per_transfer {
    BIT(dltotal_added); /* if the total has been added from this */
    BIT(ultotal_added);
    BIT(infdopen); /* TRUE if infd needs closing */
@@ -55,7 +57,8 @@ index 69b304d..ce402c8 100644
 +  BIT(convert_ascii); /* TRUE if converting to ASCII on upload */
    BIT(noprogress);
 +#ifdef __MVS__
-+  void *encoding_ctx; /* encoding conversion context for z/OS */
++  void *upload_encoding_ctx;   /* upload encoding conversion context */
++  void *download_encoding_ctx; /* download encoding conversion context */
 +#endif
    BIT(was_last_header_empty);
  

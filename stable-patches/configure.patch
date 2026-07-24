@@ -1,8 +1,8 @@
 diff --git a/configure b/configure
-index e47b24d..f620501 100755
+index 368831b..f59112c 100755
 --- a/configure
 +++ b/configure
-@@ -9723,6 +9723,10 @@ aix[4-9]*)
+@@ -9834,6 +9834,10 @@ aix[4-9]*)
    lt_cv_deplibs_check_method=pass_all
    ;;
  

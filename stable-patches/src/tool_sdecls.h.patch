@@ -1,5 +1,5 @@
 diff --git a/src/tool_sdecls.h b/src/tool_sdecls.h
-index 9a6f3cc..3eb8ebc 100644
+index c70dbd3..38debf1 100644
 --- a/src/tool_sdecls.h
 +++ b/src/tool_sdecls.h
 @@ -75,6 +75,7 @@ struct OutStruct {

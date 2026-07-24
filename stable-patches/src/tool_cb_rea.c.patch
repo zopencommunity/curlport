@@ -1,5 +1,5 @@
 diff --git a/src/tool_cb_rea.c b/src/tool_cb_rea.c
-index b5bc53a..32957ee 100644
+index b5bc53a..1d21c8c 100644
 --- a/src/tool_cb_rea.c
 +++ b/src/tool_cb_rea.c
 @@ -125,15 +125,32 @@ size_t tool_read_cb(char *buffer, size_t sz, size_t nmemb, void *userdata)
@@ -54,12 +54,12 @@ index b5bc53a..32957ee 100644
 +
 +    /* Handle dataset encoding (backward compatibility) */
 +    if(per->convert_ascii) {
-+      __e2a_s(buffer);
++      __e2a_l(buffer, (size_t)rc);
 +    }
 +    /* Handle z/OS UNIX file encoding */
-+    else if(config->upload_encoding_unix && per->encoding_ctx) {
++    else if(config->upload_encoding_unix && per->upload_encoding_ctx) {
 +      size_t size = (size_t)rc;
-+      if(encoding_convert(per->encoding_ctx, buffer, &size,
++      if(encoding_convert(per->upload_encoding_ctx, buffer, &size,
 +                          CURL_MAX_WRITE_SIZE) == 0) {
 +        rc = (ssize_t)size;
 +      }
