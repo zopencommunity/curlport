@@ -1,5 +1,5 @@
 diff --git a/src/tool_operate.c b/src/tool_operate.c
-index c9bb636..07f15db 100644
+index c9bb636..ae53af7 100644
 --- a/src/tool_operate.c
 +++ b/src/tool_operate.c
 @@ -25,6 +25,14 @@
@@ -55,7 +55,7 @@ index c9bb636..07f15db 100644
  static CURLcode pre_transfer(struct per_transfer *per)
  {
    curl_off_t uploadfilesize = -1;
-@@ -251,6 +283,40 @@ static CURLcode pre_transfer(struct per_transfer *per)
+@@ -251,6 +283,42 @@ static CURLcode pre_transfer(struct per_transfer *per)
    CURLcode result = CURLE_OK;
  
    if(per->uploadfile && !stdin_upload(per->uploadfile)) {
@@ -66,24 +66,26 @@ index c9bb636..07f15db 100644
 +       * Binary mode for binary data, text mode for text data */
 +      const char *fopen_mode;
 +      struct OperationConfig *config = per->config;
-+      
-+      if(config->upload_encoding && 
-+         !strcasecmp(config->upload_encoding, "binary")) {
-+        /* Binary mode: no newline conversion, preserves binary data */
-+        fopen_mode = "rb,type=record";
-+      }
-+      else {
++
++      if((config->upload_encoding &&
++          strcasecmp(config->upload_encoding, "binary") != 0) ||
++         per->convert_ascii) {
 +        /* Text mode: converts record boundaries to \n for text datasets */
 +        fopen_mode = "r";
 +      }
-+      
++      else {
++        /* Default / Binary mode: no newline conversion, preserves raw binary
++         * data */
++        fopen_mode = "rb,type=record";
++      }
++
 +      per->infp = fopen(per->uploadfile, fopen_mode);
 +      if(!per->infp) {
 +        helpf("cannot open dataset '%s'", per->uploadfile);
 +        return CURLE_READ_ERROR;
 +      }
 +      per->use_fopen = TRUE;
-+      per->infd = fileno(per->infp);  /* Get fd for compatibility */
++      per->infd = fileno(per->infp); /* Get fd for compatibility */
 +      per->infdopen = TRUE;
 +
 +      /* Cannot determine size for datasets - they are record-based.
@@ -96,7 +98,7 @@ index c9bb636..07f15db 100644
      /* VMS Note:
       *
       * Reading binary from files can be a problem... Only FIXED, VAR
-@@ -299,6 +365,7 @@ static CURLcode pre_transfer(struct per_transfer *per)
+@@ -299,6 +367,7 @@ static CURLcode pre_transfer(struct per_transfer *per)
      /* we ignore file size for char/block devices, sockets, etc. */
      if(S_ISREG(fileinfo.st_mode))
        uploadfilesize = fileinfo.st_size;
@@ -104,7 +106,7 @@ index c9bb636..07f15db 100644
  
  #ifdef DEBUGBUILD
      /* allow dedicated test cases to override */
-@@ -694,6 +761,21 @@ static CURLcode post_close_output(struct per_transfer *per,
+@@ -694,6 +763,21 @@ static CURLcode post_close_output(struct per_transfer *per,
    /* Close the outs file */
    if(outs->fopened && outs->stream) {
      rc = curlx_fclose(outs->stream);
@@ -126,7 +128,7 @@ index c9bb636..07f15db 100644
      if(!result && rc) {
        /* something went wrong in the writing process */
        result = CURLE_WRITE_ERROR;
-@@ -753,8 +835,18 @@ static CURLcode post_per_transfer(struct per_transfer *per,
+@@ -753,8 +837,18 @@ static CURLcode post_per_transfer(struct per_transfer *per,
    }
    else
  #endif
@@ -147,7 +149,7 @@ index c9bb636..07f15db 100644
  
    if(!per->skip) {
      result = post_check_result(per, result);
-@@ -1142,12 +1234,23 @@ static CURLcode setup_outfile(struct OperationConfig *config,
+@@ -1142,12 +1236,23 @@ static CURLcode setup_outfile(struct OperationConfig *config,
                               "ctx=stm", "rfm=stmlf", "rat=cr", "mrs=0");
  #else
      /* open file for output: */
@@ -171,7 +173,7 @@ index c9bb636..07f15db 100644
      outs->fopened = TRUE;
      outs->stream = file;
      outs->init = config->resume_from;
-@@ -1404,7 +1507,35 @@ static CURLcode create_single(struct OperationConfig *config,
+@@ -1404,7 +1509,35 @@ static CURLcode create_single(struct OperationConfig *config,
          curl_easy_cleanup(curl);
          return CURLE_FAILED_INIT;
        }
@@ -207,7 +209,7 @@ index c9bb636..07f15db 100644
      per->config = config;
      per->curl = curl;
      per->urlnum = u->num;
-@@ -2524,3 +2655,201 @@ CURLcode operate(int argc, argv_item_t argv[])
+@@ -2524,3 +2657,201 @@ CURLcode operate(int argc, argv_item_t argv[])
  
    return result;
  }
