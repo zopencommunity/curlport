@@ -1,5 +1,5 @@
 diff --git a/tests/data/data1405.c b/tests/data/data1405.c
-index ec7a4a3..f9704bd 100644
+index e795508..6bd80cd 100644
 --- a/tests/data/data1405.c
 +++ b/tests/data/data1405.c
 @@ -22,7 +22,6 @@ int main(int argc, char *argv[])
@@ -9,4 +9,4 @@ index ec7a4a3..f9704bd 100644
 -  curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L);
    curl_easy_setopt(curl, CURLOPT_BUFFERSIZE, 102400L);
    curl_easy_setopt(curl, CURLOPT_URL, "ftp://%HOSTIP:%FTPPORT/%TESTNUMBER");
-   curl_easy_setopt(curl, CURLOPT_FTP_SKIP_PASV_IP, 1L);
+   curl_easy_setopt(curl, CURLOPT_QUOTE, slist1);

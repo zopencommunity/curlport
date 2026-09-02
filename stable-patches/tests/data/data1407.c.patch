@@ -1,5 +1,5 @@
 diff --git a/tests/data/data1407.c b/tests/data/data1407.c
-index 4f34db3..64545e9 100644
+index b6f3127..89f14b5 100644
 --- a/tests/data/data1407.c
 +++ b/tests/data/data1407.c
 @@ -10,7 +10,6 @@ int main(int argc, char *argv[])
@@ -9,4 +9,4 @@ index 4f34db3..64545e9 100644
 -  curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L);
    curl_easy_setopt(curl, CURLOPT_BUFFERSIZE, 102400L);
    curl_easy_setopt(curl, CURLOPT_URL, "pop3://%HOSTIP:%POP3PORT/%TESTNUMBER");
-   curl_easy_setopt(curl, CURLOPT_DIRLISTONLY, 1L);
+   curl_easy_setopt(curl, CURLOPT_USERPWD, "user:secret");
