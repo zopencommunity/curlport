@@ -1,0 +1,17 @@
+diff --git a/lib/vtls/vtls_scache.c b/lib/vtls/vtls_scache.c
+index c703302..9241fdc 100644
+--- a/lib/vtls/vtls_scache.c
++++ b/lib/vtls/vtls_scache.c
+@@ -710,7 +710,12 @@ void Curl_ssl_scache_unlock(struct Curl_easy *data)
+   if(scache) {
+ #ifdef USE_MUTEX
+     Curl_mutex_acquire(&scache->mutex);
++#ifdef __MVS__
++    /* On z/OS, pthread_t is a struct, not an integer */
++    scache->locking_thread.__ = 0;
++#else
+     scache->locking_thread = 0;
++#endif
+     DEBUGASSERT(scache->is_locked);
+     scache->is_locked = FALSE;
+     Curl_mutex_release(&scache->mutex);
