@@ -1,5 +1,5 @@
 diff --git a/tests/data/data1406.c b/tests/data/data1406.c
-index 30aff8d..f215372 100644
+index 4f9a3fc..078cadf 100644
 --- a/tests/data/data1406.c
 +++ b/tests/data/data1406.c
 @@ -15,7 +15,6 @@ int main(int argc, char *argv[])
@@ -9,4 +9,4 @@ index 30aff8d..f215372 100644
 -  curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L);
    curl_easy_setopt(curl, CURLOPT_BUFFERSIZE, 102400L);
    curl_easy_setopt(curl, CURLOPT_URL, "smtp://%HOSTIP:%SMTPPORT/%TESTNUMBER");
-   curl_easy_setopt(curl, CURLOPT_UPLOAD, 1L);
+   curl_easy_setopt(curl, CURLOPT_USERAGENT, "curl/%VERSION");

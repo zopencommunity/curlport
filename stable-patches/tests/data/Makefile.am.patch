@@ -1,13 +1,19 @@
 diff --git a/tests/data/Makefile.am b/tests/data/Makefile.am
-index 9fb1720..3d49568 100644
+index 3b32fce..bd0a272 100644
 --- a/tests/data/Makefile.am
 +++ b/tests/data/Makefile.am
-@@ -290,7 +290,7 @@ test3300 test3301 test3302 test3303 test3304 test3305 \
- test3400 \
- test3401 \
- \
--test4000 test4001
-+test4000 test4001 test4002 test4003 test4004 test4005 test4006 test4007 test4008 test4009
- 
- EXTRA_DIST = $(TESTCASES) DISABLED data-xml1 data320.html \
- data1461.txt data1463.txt  \
+@@ -2092,6 +2092,14 @@ TESTCASES = \
+   \
+   test4000 \
+   test4001 \
++  test4002 \
++  test4003 \
++  test4004 \
++  test4005 \
++  test4006 \
++  test4007 \
++  test4008 \
++  test4009 \
+   \
+   test5000 \
+   test5001 \

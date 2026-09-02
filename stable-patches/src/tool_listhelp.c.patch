@@ -1,8 +1,8 @@
 diff --git a/src/tool_listhelp.c b/src/tool_listhelp.c
-index c0b0af7..409dd4d 100644
+index b6d3ddf..842f6de 100644
 --- a/src/tool_listhelp.c
 +++ b/src/tool_listhelp.c
-@@ -166,6 +166,9 @@ const struct helptxt helptext[] = {
+@@ -167,6 +167,9 @@ const struct helptxt helptext[] = {
    { "    --doh-url <URL>",
      "Resolve hostnames over DoH",
      CURLHELP_DNS },
@@ -12,13 +12,13 @@ index c0b0af7..409dd4d 100644
    { "    --dump-ca-embed",
      "Write the embedded CA bundle to standard output",
      CURLHELP_HTTP | CURLHELP_PROXY | CURLHELP_TLS },
-@@ -824,6 +827,9 @@ const struct helptxt helptext[] = {
+@@ -852,6 +855,9 @@ const struct helptxt helptext[] = {
    { "    --unix-socket <path>",
      "Connect through this Unix domain socket",
-     CURLHELP_CONNECTION },
+     CURLHELP_CONNECTION | CURLHELP_HTTP },
 +  { "    --upload-encoding <encoding>",
 +    "Encoding to use for upload (e.g. ascii)",
 +    CURLHELP_UPLOAD },
    { "-T, --upload-file <file>",
      "Transfer local FILE to destination",
-     CURLHELP_IMPORTANT | CURLHELP_UPLOAD },
+     CURLHELP_IMPORTANT | CURLHELP_UPLOAD | CURLHELP_IMAP },
