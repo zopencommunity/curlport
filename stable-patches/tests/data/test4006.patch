@@ -37,7 +37,7 @@ index 0000000..498f8fc
 +zos
 +</features>
 +<name>
-+z/OS tagging: existing IBM-1047 file stays IBM-1047 even with --tag binary
++z/OS tagging: IBM-1047 file stays IBM-1047 with --tag binary
 +</name>
 +<precheck>
 +rm -f %LOGDIR/curl%TESTNUMBER.out && touch %LOGDIR/curl%TESTNUMBER.out && chtag -t -c IBM-1047 %LOGDIR/curl%TESTNUMBER.out
