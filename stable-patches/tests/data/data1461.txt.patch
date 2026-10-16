@@ -1,5 +1,5 @@
 diff --git a/tests/data/data1461.txt b/tests/data/data1461.txt
-index 286be7c..50234ca 100644
+index 5ddb4e1..3d853d1 100644
 --- a/tests/data/data1461.txt
 +++ b/tests/data/data1461.txt
 @@ -8,7 +8,6 @@ Usage: curl [options...] <url>

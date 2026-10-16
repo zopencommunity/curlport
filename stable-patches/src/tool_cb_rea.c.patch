@@ -1,8 +1,8 @@
 diff --git a/src/tool_cb_rea.c b/src/tool_cb_rea.c
-index b5bc53a..1d21c8c 100644
+index bf9bd15..17f6793 100644
 --- a/src/tool_cb_rea.c
 +++ b/src/tool_cb_rea.c
-@@ -125,15 +125,32 @@ size_t tool_read_cb(char *buffer, size_t sz, size_t nmemb, void *userdata)
+@@ -124,15 +124,32 @@ size_t tool_read_cb(char *buffer, size_t sz, size_t nmemb, void *userdata)
    else
  #endif /* _WIN32 */
    {
@@ -43,7 +43,7 @@ index b5bc53a..1d21c8c 100644
      }
    }
  
-@@ -146,6 +163,26 @@ size_t tool_read_cb(char *buffer, size_t sz, size_t nmemb, void *userdata)
+@@ -145,6 +162,26 @@ size_t tool_read_cb(char *buffer, size_t sz, size_t nmemb, void *userdata)
            delta);
      rc = (ssize_t)(per->uploadfilesize - per->uploadedsofar);
    }

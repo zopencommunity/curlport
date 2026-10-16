@@ -1,5 +1,5 @@
 diff --git a/src/tool_getparam.c b/src/tool_getparam.c
-index 35c01b1..0e3a4df 100644
+index 44825f8..b617e90 100644
 --- a/src/tool_getparam.c
 +++ b/src/tool_getparam.c
 @@ -23,6 +23,11 @@
@@ -14,7 +14,7 @@ index 35c01b1..0e3a4df 100644
  #include "tool_cfgable.h"
  #include "tool_cb_prg.h"
  #include "tool_filetime.h"
-@@ -118,6 +123,7 @@ static const struct LongShort aliases[]= {
+@@ -118,6 +123,7 @@ static const struct LongShort aliases[] = {
    {"dns-ipv4-addr",              ARG_STRG, ' ', C_DNS_IPV4_ADDR},
    {"dns-ipv6-addr",              ARG_STRG, ' ', C_DNS_IPV6_ADDR},
    {"dns-servers",                ARG_STRG, ' ', C_DNS_SERVERS},
@@ -22,7 +22,7 @@ index 35c01b1..0e3a4df 100644
    {"doh-cert-status",            ARG_BOOL|ARG_TLS, ' ', C_DOH_CERT_STATUS},
    {"doh-insecure",               ARG_BOOL|ARG_TLS, ' ', C_DOH_INSECURE},
    {"doh-url",                    ARG_STRG, ' ', C_DOH_URL},
-@@ -325,6 +331,7 @@ static const struct LongShort aliases[]= {
+@@ -333,6 +339,7 @@ static const struct LongShort aliases[] = {
    {"stderr",                     ARG_FILE, ' ', C_STDERR},
    {"styled-output",              ARG_BOOL, ' ', C_STYLED_OUTPUT},
    {"suppress-connect-headers",   ARG_BOOL, ' ', C_SUPPRESS_CONNECT_HEADERS},
@@ -30,7 +30,7 @@ index 35c01b1..0e3a4df 100644
    {"tcp-fastopen",               ARG_BOOL, ' ', C_TCP_FASTOPEN},
    {"tcp-nodelay",                ARG_BOOL, ' ', C_TCP_NODELAY},
    {"telnet-option",              ARG_STRG, 't', C_TELNET_OPTION},
-@@ -353,6 +360,7 @@ static const struct LongShort aliases[]= {
+@@ -361,6 +368,7 @@ static const struct LongShort aliases[] = {
    {"trace-ids",                  ARG_BOOL, ' ', C_TRACE_IDS},
    {"trace-time",                 ARG_BOOL, ' ', C_TRACE_TIME},
    {"unix-socket",                ARG_FILE, ' ', C_UNIX_SOCKET},
@@ -38,7 +38,7 @@ index 35c01b1..0e3a4df 100644
    {"upload-file",                ARG_FILE, 'T', C_UPLOAD_FILE},
    {"upload-flags",               ARG_STRG, ' ', C_UPLOAD_FLAGS},
    {"url",                        ARG_STRG, ' ', C_URL},
-@@ -2930,6 +2938,52 @@ static ParameterError opt_string(struct OperationConfig *config,
+@@ -2918,6 +2926,52 @@ static ParameterError opt_string(struct OperationConfig *config,
    case C_UPLOAD_FLAGS: /* --upload-flags */
      err = parse_upload_flags(config, nextarg);
      break;

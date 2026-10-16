@@ -1,5 +1,5 @@
 diff --git a/src/tool_cb_wrt.c b/src/tool_cb_wrt.c
-index 133573a..48eb33d 100644
+index 2a17df0..340a158 100644
 --- a/src/tool_cb_wrt.c
 +++ b/src/tool_cb_wrt.c
 @@ -28,6 +28,14 @@
@@ -17,7 +17,7 @@ index 133573a..48eb33d 100644
  #ifdef _WIN32
  #define OPENMODE (_S_IREAD | _S_IWRITE)
  #else
-@@ -40,6 +48,7 @@ bool tool_create_output_file(struct OutStruct *outs,
+@@ -76,6 +84,7 @@ bool tool_create_output_file(struct OutStruct *outs,
  {
    FILE *file = NULL;
    const char *fname = outs->filename;
@@ -25,7 +25,7 @@ index 133573a..48eb33d 100644
    DEBUGASSERT(outs);
    DEBUGASSERT(config);
    DEBUGASSERT(fname && *fname);
-@@ -103,6 +112,20 @@ bool tool_create_output_file(struct OutStruct *outs,
+@@ -150,6 +159,20 @@ bool tool_create_output_file(struct OutStruct *outs,
            curlx_strerror(errno, errbuf, sizeof(errbuf)));
      return FALSE;
    }
@@ -46,7 +46,7 @@ index 133573a..48eb33d 100644
    outs->regular_file = TRUE;
    outs->fopened = TRUE;
    outs->stream = file;
-@@ -311,6 +334,59 @@ size_t tool_write_cb(char *buffer, size_t sz, size_t nmemb, void *userdata)
+@@ -349,6 +372,59 @@ size_t tool_write_cb(char *buffer, size_t sz, size_t nmemb, void *userdata)
    if(!outs->stream && !tool_create_output_file(outs, per->config))
      return CURL_WRITEFUNC_ERROR;
  
@@ -75,7 +75,7 @@ index 133573a..48eb33d 100644
 +        bytes = conv_size;
 +      }
 +      else {
-+        /* Conversion failed â abort to prevent corrupted output */
++        /* Conversion failed Ã¢ÂÂ abort to prevent corrupted output */
 +        return CURL_WRITEFUNC_ERROR;
 +      }
 +    }
@@ -106,13 +106,13 @@ index 133573a..48eb33d 100644
    if(is_tty && (outs->bytes < 2000) && !config->terminal_binary_ok) {
      /* binary output to terminal? */
      if(memchr(buffer, 0, bytes)) {
-@@ -345,6 +421,12 @@ size_t tool_write_cb(char *buffer, size_t sz, size_t nmemb, void *userdata)
+@@ -381,6 +457,12 @@ size_t tool_write_cb(char *buffer, size_t sz, size_t nmemb, void *userdata)
      /* we added this amount of data to the output */
      outs->bytes += bytes;
  
 +#ifdef __MVS__
 +  /* converted_buffer points to ctx->conv_buf which is freed by
-+   * encoding_cleanup() â no per-call free needed */
++   * encoding_cleanup() Ã¢ÂÂ no per-call free needed */
 +  (void)converted_buffer;
 +#endif
 +

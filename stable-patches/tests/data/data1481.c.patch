@@ -1,5 +1,5 @@
 diff --git a/tests/data/data1481.c b/tests/data/data1481.c
-index e7d468e..777a27a 100644
+index 7d09b35..c401e64 100644
 --- a/tests/data/data1481.c
 +++ b/tests/data/data1481.c
 @@ -10,7 +10,6 @@ int main(int argc, char *argv[])
