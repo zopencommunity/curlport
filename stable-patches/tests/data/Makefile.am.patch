@@ -1,9 +1,9 @@
 diff --git a/tests/data/Makefile.am b/tests/data/Makefile.am
-index 3b32fce..bd0a272 100644
+index d066f2d..316a974 100644
 --- a/tests/data/Makefile.am
 +++ b/tests/data/Makefile.am
-@@ -2092,6 +2092,14 @@ TESTCASES = \
-   \
+@@ -2140,6 +2140,14 @@ TESTCASES = \
+   test3611 \
    test4000 \
    test4001 \
 +  test4002 \
@@ -14,6 +14,6 @@ index 3b32fce..bd0a272 100644
 +  test4007 \
 +  test4008 \
 +  test4009 \
-   \
-   test5000 \
-   test5001 \
+   test4039 \
+   test4040 \
+   test4644 \

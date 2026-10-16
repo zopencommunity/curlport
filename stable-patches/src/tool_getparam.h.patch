@@ -1,8 +1,8 @@
 diff --git a/src/tool_getparam.h b/src/tool_getparam.h
-index 32476d3..6bb594a 100644
+index 92495a4..7579453 100644
 --- a/src/tool_getparam.h
 +++ b/src/tool_getparam.h
-@@ -298,6 +298,8 @@ typedef enum {
+@@ -302,6 +302,8 @@ typedef enum {
    C_TRACE_TIME,
    C_IP_TOS,
    C_UNIX_SOCKET,

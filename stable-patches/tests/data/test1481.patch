@@ -1,5 +1,5 @@
 diff --git a/tests/data/test1481 b/tests/data/test1481
-index 8a0d310..567d847 100644
+index 3991d75..6bb6c0d 100644
 --- a/tests/data/test1481
 +++ b/tests/data/test1481
 @@ -34,7 +34,7 @@ SSL
@@ -10,7 +10,7 @@ index 8a0d310..567d847 100644
 +SSL_CERT_FILE=
  </setenv>
  <command>
- http://moo/ --libcurl %LOGDIR/test%TESTNUMBER.c --tls-max 1.3 --proxy-tlsv1 -x http://%HOSTIP:%HTTPPORT
+ http://moo/ --libcurl %LOGDIR/test%TESTNUMBER.c --tls-max 1.3 --proxy-tlsv1 -x http://%HOSTIP:%HTTPPORT --socks5-gssapi-service sockd
 @@ -61,6 +61,8 @@ $_ = '' if /CURLOPT_HTTP_VERSION/
  $_ = '' if /CURLOPT_HTTP09_ALLOWED/
  $_ = '' if /CURLOPT_INTERLEAVEDATA/
